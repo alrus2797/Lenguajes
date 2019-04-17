@@ -1,5 +1,6 @@
 .data
 space: .asciiz " "
+endl: .asciiz "\n"
 .text
 
 main:
@@ -22,6 +23,7 @@ loop:
     beq $t1, 1, fin
 
     move $a0, $t1
+
     la $v0, 1
     syscall
 
@@ -29,7 +31,7 @@ loop:
     la $a0, space
     syscall
 
-    div $t3, $t1, $t2
+    div $t1, $t3
     mfhi $t2
     beqz $t2, es_par
 
@@ -42,6 +44,14 @@ es_par:
     b loop
 
 fin:
+
+    move $a0, $t1
+    la $v0, 1
+    syscall
+
+    li $v0,4
+    la $a0, endl
+    syscall
     jr $ra
     
     
